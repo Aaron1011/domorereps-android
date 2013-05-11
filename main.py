@@ -8,10 +8,15 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 class HomeScreen(Screen):
     pass
 
+class ExercisesScreen(Screen):
+    pass
+
 class DomorerepsApp(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(HomeScreen(name='home'))
+        sm.add_widget(ExercisesScreen(name='exercises'))
+        self.load_exercises()
         return sm
 
 if __name__ == "__main__":

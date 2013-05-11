@@ -1,6 +1,7 @@
 #:kivy 1.6.0
 
 <HomeScreen>:
+    workout_btn: workout
     BoxLayout:
         orientation: 'vertical'
         Label:
@@ -10,6 +11,7 @@
             size_hint: 1, .8
 
         Button:
+            id: workout
             text: "Start Workout"
             size_hint: 1, .1
 
@@ -19,5 +21,6 @@
                 text: "Work out"
             Button:
                 text: "Exercises"
+                on_press:  root.manager.current = 'exercises'
             Button:
                 text: "Settings"
