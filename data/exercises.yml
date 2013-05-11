@@ -1,0 +1,28 @@
+---
+squat:
+  name: Squat
+  weightless: false
+
+pullup:
+  name: Pull-up
+  weightless: true
+
+pushup:
+  name: Push-up
+  weightless: true
+
+benchpress:
+  name: Bench Press
+  weightless: false
+
+barbellrow:
+  name: Barbell Row
+  weightless: false
+
+overheadpress:
+  name: Overhead Press
+  weightless: false
+
+deadlift:
+  name: Deadlift
+  weightless: false
