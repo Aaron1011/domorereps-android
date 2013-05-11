@@ -1,22 +1,23 @@
 #:kivy 1.6.0
 
 <HomeScreen>:
-    orientation: 'vertical'
-    Label:
-        text: "Do More Reps!"
-        font_size: 70
-        text_size: 250, None
-        size_hint: 1, .8
-
-    Button:
-        text: "Start Workout"
-        size_hint: 1, .1
-
     BoxLayout:
-        size_hint: 1, .1
+        orientation: 'vertical'
+        Label:
+            text: "Do More Reps!"
+            font_size: 70
+            text_size: 250, None
+            size_hint: 1, .8
+
         Button:
-            text: "Work out"
-        Button:
-            text: "Exercises"
-        Button:
-            text: "Settings"
+            text: "Start Workout"
+            size_hint: 1, .1
+
+        BoxLayout:
+            size_hint: 1, .1
+            Button:
+                text: "Work out"
+            Button:
+                text: "Exercises"
+            Button:
+                text: "Settings"
