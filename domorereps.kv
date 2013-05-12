@@ -21,6 +21,12 @@
                 text: "Work out"
             Button:
                 text: "Exercises"
-                on_press:  root.manager.current = 'exercises'
+                on_release:  root.manager.current = 'exercises'
             Button:
                 text: "Settings"
+
+<ExercisesScreen>:
+    layout: layout
+    BoxLayout:
+        id: layout
+        orientation: 'vertical'
