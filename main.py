@@ -1,3 +1,18 @@
+import sys
+from os import environ
+import traceback
+DEBUG = environ.get('DOMO_DEBUG')
+
+if not DEBUG:
+    import raven
+    client = raven.Client()
+
+def handle_exception(*data):
+    client.captureException(exc_info=data)
+
+if not DEBUG:
+    sys.excepthook = handle_exception
+
 import kivy
 kivy.require('1.6.0')
 
