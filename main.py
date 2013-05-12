@@ -9,6 +9,7 @@ from kivy.properties import ObjectProperty
 
 import yaml
 import sqlalchemy
+import os
 from models import * 
 from sqlalchemy.orm import sessionmaker
 
@@ -48,17 +49,19 @@ class DomorerepsApp(App):
         return sm
 
     def load_exercises(self):
-        session = Session()
-        with open('data/exercises.yml') as f:
-            data = yaml.load(f.read())
+        if not os.path.exists('exercises_loaded'):
+            open('exercises_loaded', 'w').close()
+            session = Session()
+            with open('data/exercises.yml') as f:
+                data = yaml.load(f.read())
 
-            for exercise in data.values():
-                name = exercise['name']
-                weightless = exercise['weightless']
+                for exercise in data.values():
+                    name = exercise['name']
+                    weightless = exercise['weightless']
 
-                exercise = Exercise(name, weightless)
-                session.add(exercise)
-            session.commit()
+                    exercise = Exercise(name, weightless)
+                    session.add(exercise)
+                session.commit()
 
 if __name__ == "__main__":
     DomorerepsApp().run()
