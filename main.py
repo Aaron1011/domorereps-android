@@ -1,17 +1,18 @@
 import sys
 from os import environ
-import traceback
+import error_reporting
 DEBUG = environ.get('DOMO_DEBUG')
 
-if not DEBUG:
-    import raven
-    client = raven.Client()
+import sqlalchemy
+from sqlalchemy.orm import sessionmaker
+from models import *
 
-def handle_exception(*data):
-    client.captureException(exc_info=data)
+engine = sqlalchemy.create_engine("sqlite:///db.sqlite3")
+Session = sessionmaker(bind=engine)
+Base.metadata.create_all(engine)
 
 if not DEBUG:
-    sys.excepthook = handle_exception
+    error_reporting.start_reporting(engine)
 
 import kivy
 kivy.require('1.6.0')
@@ -23,14 +24,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 
 import yaml
-import sqlalchemy
 import os
-from models import * 
-from sqlalchemy.orm import sessionmaker
-
-engine = sqlalchemy.create_engine("sqlite:///db.sqlite3")
-Session = sessionmaker(bind=engine)
-Base.metadata.create_all(engine) 
 
 
 class HomeScreen(Screen):
