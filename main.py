@@ -15,7 +15,7 @@ if not DEBUG:
     error_reporting.start_reporting(engine)
 
 import kivy
-kivy.require('1.6.0')
+kivy.require('1.7.0')
 
 from kivy.app import App
 from kivy.uix.button import Button
