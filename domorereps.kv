@@ -1,4 +1,5 @@
 #:kivy 1.7.0
+#:import Exercise models.Exercise
 
 <HomeScreen>:
     workout_btn: workout
@@ -30,3 +31,49 @@
     BoxLayout:
         id: layout
         orientation: 'vertical'
+
+<EditExerciseScreen>:
+    layout: layout
+    exercise: Exercise('', False)
+    name_input: name_input
+    BoxLayout:
+        id: layout
+        orientation: 'vertical'
+
+        BoxLayout:
+            AnchorLayout:
+                anchor_x: 'left'
+                anchor_y: 'top'
+
+                Button:
+                    text: "Exercises"
+                    on_release: root.manager.current = 'exercises'
+                    size_hint: .5, .2
+
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'top'
+
+                Button:
+                    text: "Save"
+                    on_release: root.session.commit()
+                    size_hint: .5, .2
+
+        TextInput:
+            id: name_input
+            text: root.exercise.name
+            on_text: root.exercise.name = self.text
+            multiline: False
+            size_hint: 1, .2
+
+        BoxLayout:
+            ToggleButton:
+                text: "Weight + Reps"
+                group: 'weightless'
+                on_release: root.exercise.weightless = False
+                size_hint: 1, .2
+            ToggleButton:
+                text: "Reps only"
+                group: 'weightless'
+                on_release: root.exercise.weightless = True
+                size_hint: 1, .2
