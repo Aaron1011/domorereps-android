@@ -35,7 +35,7 @@ class Exercise(Base):
     session_templates = relationship('SessionTemplate',
             secondary=sessiontemplate_exercises, backref='exercises')
 
-    def __init__(self, name, weightless):
+    def __init__(self, name=None, weightless=None):
         self.name = name
         self.weightless = weightless
 
