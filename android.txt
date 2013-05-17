@@ -1,0 +1,3 @@
+title=Do More Reps
+author=Aaron
+orientation=portrait
