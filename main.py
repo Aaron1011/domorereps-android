@@ -23,38 +23,18 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 
+from screens import *
+
 import yaml
 import os
-
-
-class HomeScreen(Screen):
-    pass
-
-class ExercisesScreen(Screen):
-    layout = ObjectProperty(None)
-
-    def fetch_exercises(self):
-       session = Session()
-       return session.query(Exercise).all()
-
-    def on_press(self, instance):
-        print instance.weightless
-
-    def __init__(self, **kwargs):
-        super(ExercisesScreen, self).__init__(**kwargs)
-        for exercise in self.fetch_exercises():
-            button = Button(text=exercise.name, size_hint=(.8, .1),
-                    pos_hint={'x': .1})
-            button.weightless = exercise.weightless
-            button.bind(on_press=self.on_press)
-            self.layout.add_widget(button)
 
 class DomorerepsApp(App):
     def build(self):
         self.load_exercises()
         sm = ScreenManager()
         sm.add_widget(HomeScreen(name='home'))
-        sm.add_widget(ExercisesScreen(name='exercises'))
+        sm.add_widget(ExercisesScreen(Session, name='exercises'))
+        sm.add_widget(EditExerciseScreen(Session, name='editexercise'))
         return sm
 
     def load_exercises(self):
