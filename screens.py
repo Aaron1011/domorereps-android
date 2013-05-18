@@ -1,5 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from models import *
 
@@ -47,3 +49,10 @@ class EditExerciseScreen(Screen):
         super(EditExerciseScreen, self).__init__(**kwargs)
         self.session_class = session
         self.session = session()
+
+    def save(self):
+        self.session.commit()
+        popup = Popup(title='', content=Label(text='Exercise Saved!'),
+                size_hint=(.5, .5))
+
+        popup.open()
