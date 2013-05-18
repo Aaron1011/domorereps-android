@@ -29,8 +29,18 @@
 <ExercisesScreen>:
     layout: layout
     BoxLayout:
-        id: layout
         orientation: 'vertical'
+        spacing: 20
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: .2, .1
+            Button:
+                text: "Back"
+                on_release: root.manager.current = 'home'
+
+        BoxLayout:
+            id: layout
+            orientation: 'vertical'
 
 <EditExerciseScreen>:
     layout: layout
