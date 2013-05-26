@@ -28,19 +28,35 @@
 
 <ExercisesScreen>:
     layout: layout
+    add_exercise: new_exercise
     BoxLayout:
         orientation: 'vertical'
-        spacing: 20
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: .2, .1
-            Button:
-                text: "Back"
-                on_release: root.manager.current = 'home'
 
         BoxLayout:
-            id: layout
+            orientation: 'horizontal'
+
+            AnchorLayout:
+                anchor_x: 'left'
+                anchor_y: 'top'
+
+                Button:
+                    text: "Back"
+                    on_release: root.manager.current = 'home'
+                    size_hint: .5, .1
+
+
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'top'
+
+                Button:
+                    id: new_exercise
+                    text: "+"
+                    size_hint: .5, .1
+
+        BoxLayout:
             orientation: 'vertical'
+            id: layout
 
 <EditExerciseScreen>:
     layout: layout

@@ -5,16 +5,20 @@ from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from models import *
 
+from sqlalchemy.orm.exc import MultipleResultsFound
+
 class HomeScreen(Screen):
     pass
 
 class ExercisesScreen(Screen):
     layout = ObjectProperty(None)
+    add_exercise = ObjectProperty(None)
 
     def __init__(self, session, **kwargs):
         super(ExercisesScreen, self).__init__(**kwargs)
         self.session_class = session
         self.session = session()
+        self.add_exercise.bind(on_press=self.new_exercise)
 
     def on_pre_enter(self):
         self.layout.clear_widgets()
@@ -28,6 +32,16 @@ class ExercisesScreen(Screen):
 
     def fetch_exercises(self):
        return self.session.query(Exercise).all()
+
+    def new_exercise(self, instance):
+        edit_screen = self.manager.get_screen('editexercise')
+        exercise = Exercise()
+        exercise.name = ''
+        self.session.add(exercise)
+
+        edit_screen.exercise = exercise
+        edit_screen.name_input.text = exercise.name
+        self.manager.current = 'editexercise'
 
     def change_screen(self, instance):
         edit_screen = self.manager.get_screen('editexercise')
