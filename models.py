@@ -70,3 +70,8 @@ class PythonException(Base):
     __tablename__ = 'exceptions'
     id = Column(Integer, primary_key=True)
     data = Column(String)
+
+class ExerciseVersion(Base):
+    __tablename__ = 'exerciseversion'
+    id = Column(Integer, primary_key=True)
+    number = Column(Integer)
