@@ -4,6 +4,7 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from models import *
+from session_decorator import *
 
 from sqlalchemy.orm.exc import MultipleResultsFound
 
@@ -17,7 +18,6 @@ class ExercisesScreen(Screen):
     def __init__(self, session, **kwargs):
         super(ExercisesScreen, self).__init__(**kwargs)
         self.session_class = session
-        self.session = session()
         self.add_exercise.bind(on_press=self.new_exercise)
 
     def on_pre_enter(self):
@@ -31,13 +31,13 @@ class ExercisesScreen(Screen):
 
 
     def fetch_exercises(self):
-       return self.session.query(Exercise).all()
+        with transactional_session(self.session_class) as session:
+            return session.query(Exercise).all()
 
     def new_exercise(self, instance):
         edit_screen = self.manager.get_screen('editexercise')
         exercise = Exercise()
         exercise.name = ''
-        self.session.add(exercise)
 
         edit_screen.exercise = exercise
         edit_screen.name_input.text = exercise.name
@@ -46,8 +46,8 @@ class ExercisesScreen(Screen):
     def change_screen(self, instance):
         edit_screen = self.manager.get_screen('editexercise')
 
-        query = self.session.query(Exercise).filter(Exercise.name==instance.text)
-        exercise = query.one()
+        with transactional_session(self.session_class) as session:
+            exercise = session.query(Exercise).filter(Exercise.name==instance.text).one()
 
         edit_screen.exercise = exercise
         edit_screen.name_input.text = exercise.name
@@ -62,10 +62,11 @@ class EditExerciseScreen(Screen):
     def __init__(self, session, **kwargs):
         super(EditExerciseScreen, self).__init__(**kwargs)
         self.session_class = session
-        self.session = session()
 
     def save(self):
-        self.session.commit()
+        with transactional_session(self.session_class) as session:
+            session.add(self.exercise)
+
         popup = Popup(title='', content=Label(text='Exercise Saved!'),
                 size_hint=(.5, .5))
 

@@ -27,6 +27,7 @@ from screens import *
 
 import yaml
 import os
+from session_decorator import *
 
 class DomorerepsApp(App):
     def build(self):
@@ -38,19 +39,22 @@ class DomorerepsApp(App):
         return sm
 
     def load_exercises(self):
-        if not os.path.exists('exercises_loaded'):
-            open('exercises_loaded', 'w').close()
-            session = Session()
-            with open('data/exercises.yml') as f:
-                data = yaml.load(f.read())
+        with transactional_session(Session) as session:
+            version = session.query(ExerciseVersion).all()
+            if not version or version[0].number < 1:
+                print "Loading exercises"
+                version = ExerciseVersion()
+                version.number = 1
+                session.add(version)
+                with open('data/exercises.yml') as f:
+                    data = yaml.load(f.read())
 
-                for exercise in data.values():
-                    name = exercise['name']
-                    weightless = exercise['weightless']
+                    for exercise in data.values():
+                        name = exercise['name']
+                        weightless = exercise['weightless']
 
-                    exercise = Exercise(name, weightless)
-                    session.add(exercise)
-                session.commit()
+                        exercise = Exercise(name, weightless)
+                        session.add(exercise)
 
 if __name__ == "__main__":
     DomorerepsApp().run()

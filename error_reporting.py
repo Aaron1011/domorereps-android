@@ -8,6 +8,7 @@ import raven
 from kivy.clock import Clock
 import traceback
 import logging
+from session_decorator import *
 
 client = raven.Client()
 
@@ -19,7 +20,7 @@ class ErrorReporter(threading.Thread):
 
     def __init__(self, session):
         threading.Thread.__init__(self)
-        self.session = session()
+        self.session_class = session
 
     def send_report(self, data):
         client.send(**data)
@@ -29,8 +30,8 @@ class ErrorReporter(threading.Thread):
         data = pickle.loads(exception.data)
         while not self.send_report(data):
             pass
-        self.session.delete(exception)
-        self.session.commit()
+        with transactional_session(self.session_class) as session:
+            session.delete(exception)
 
     def run(self):
 
@@ -40,8 +41,9 @@ class ErrorReporter(threading.Thread):
         #event.listen(PythonException, "after_insert", insert_listener)
 
         def process(dt):
-            for exception in self.session.query(PythonException).all():
-                self.process_exception(exception)
+            with transactional_session(self.session_class) as session:
+                for exception in session.query(PythonException).all():
+                    self.process_exception(exception)
         Clock.schedule_interval(process, 10)
 
 def start_reporting(engine):
@@ -58,8 +60,7 @@ def start_reporting(engine):
         data = client.build_msg('raven.events.Exception', exc_info=data)
         exception.data = pickle.dumps(data)
 
-        session = Session()
-        session.add(exception)
-        session.commit()
+        with transactional_session(Session) as session:
+            session.add(exception)
 
     sys.excepthook = excepthook
