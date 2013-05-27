@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from models import *
 
 engine = sqlalchemy.create_engine("sqlite:///db.sqlite3")
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, expire_on_commit=False)
 Base.metadata.create_all(engine)
 
 if not DEBUG:
