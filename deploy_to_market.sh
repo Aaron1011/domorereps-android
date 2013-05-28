@@ -1,7 +1,10 @@
 ssh ubuntu@50.16.231.161 /bin/sh << 'EOF'
-ls;
 . ./secrets.sh;
 #. ./vars.sh
+
+cd ~/domorereps-android
+git pull
+cd ~/
 
 ANDROIDSDK=~/android-tools/adt-bundle-linux-x86_64-20130514/sdk;
 ANDROIDNDK=~/android-tools/android-ndk-r8e;
