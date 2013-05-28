@@ -18,4 +18,4 @@ if [ -z "$BUILD_TYPE" ]; then export BUILD_TYPE=debug; fi
 
 cd ~/python-for-android/dist/default
 echo $PATH > testing
-python build.py --dir ~/domorereps-android/ --package org.domorereps.domorereps --name "Do More Reps" --version 1.0.0 --orientation portrait --permission INTERNET $BUILD_TYPE installr
+python build.py --dir ~/domorereps-android/ --package org.domorereps.domorereps --name "Do More Reps" --version 1.0.0 --orientation portrait --permission INTERNET $BUILD_TYPE release
