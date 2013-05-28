@@ -24,7 +24,7 @@ curl "http://testflightapp.com/api/builds.json" \
   -F file=@DoMoreReps.apk \
   -F api_token="$TESTFLIGHT_API_TOKEN" \
   -F team_token="$TESTFLIGHT_TEAM_TOKEN" \
-  -F notes=`git --git-dir=/home/$USER/domorereps-android/.git log -1 --pretty=%B` \
+  -F notes="`git --git-dir=/home/$USER/domorereps-android/.git log -1 --pretty=%B`" \
   -F notify=True \
   -F distribution_lists='Testers'
 
