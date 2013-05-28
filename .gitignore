@@ -36,3 +36,6 @@ nosetests.xml
 
 db.sqlite3
 exercises_loaded
+
+secrets.sh
+secret_settings.py
