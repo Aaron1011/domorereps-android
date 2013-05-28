@@ -14,7 +14,7 @@ PATH=$ANDROIDNDK:$ANDROIDSDK/tools:$PATH;
 
 BUILD_TYPE=release;
 
-~/domorereps-android/deploy.sh
+~/domorereps-android/build.sh
 
 jarsigner -verbose -keypass $KEYSTORE_PASS -storepass $KEYSTORE_PASS -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.my-keystore.keystore ~/python-for-android/dist/default/bin/DoMoreReps-1.0.0-release-unsigned.apk mykey;
 
