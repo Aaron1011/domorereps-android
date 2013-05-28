@@ -20,13 +20,11 @@ jarsigner -verbose -keypass $KEYSTORE_PASS -storepass $KEYSTORE_PASS -sigalg SHA
 
 zipalign -f -v 4 ~/python-for-android/dist/default/bin/DoMoreReps-1.0.0-release-unsigned.apk DoMoreReps.apk;
 
-cd ~/domorereps-android
-
 curl "http://testflightapp.com/api/builds.json" \
   -F file=@~/DoMoreReps.apk \
   -F api_token="$TESTFLIGHT_API_TOKEN" \
   -F team_token="$TESTFLIGHT_TEAM_TOKEN" \
-  -F notes=`git log -1 --pretty=%B` \
+  -F notes=`git --git-dir=/home/$USER/domorereps-android/.git log -1 --pretty=%B` \
   -F notify=True \
   -F distribution_lists='Testers'
 
