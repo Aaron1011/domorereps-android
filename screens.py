@@ -3,6 +3,7 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+from kivy.uix.anchorlayout import AnchorLayout
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 from models import *
@@ -27,8 +28,8 @@ class ExercisesScreen(Screen):
     def on_pre_enter(self):
         self.layout.clear_widgets()
         for exercise in self.fetch_exercises():
-            button = Button(text=exercise.name, size_hint=(.8, .1),
-                    pos_hint={'x': .1})
+            button = Button(text=exercise.name, size_hint=(.8, None),
+                    pos_hint={'x': .1}, height=40)
             button.weightless = exercise.weightless
             button.bind(on_press=self.change_screen)
             self.layout.add_widget(button)

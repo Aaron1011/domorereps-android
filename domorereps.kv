@@ -34,6 +34,7 @@
 
         BoxLayout:
             orientation: 'horizontal'
+            size_hint: 1, .1
 
             AnchorLayout:
                 anchor_x: 'left'
@@ -42,7 +43,7 @@
                 Button:
                     text: "Back"
                     on_release: root.manager.current = 'home'
-                    size_hint: .5, .1
+                    size_hint: .5, 1
 
 
             AnchorLayout:
@@ -52,11 +53,15 @@
                 Button:
                     id: new_exercise
                     text: "+"
-                    size_hint: .5, .1
+                    size_hint: .5, 1
 
-        BoxLayout:
-            orientation: 'vertical'
-            id: layout
+        ScrollView:
+            pos_hint: {'y': .1}
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 600
+                id: layout
 
 <EditExerciseScreen>:
     layout: layout
