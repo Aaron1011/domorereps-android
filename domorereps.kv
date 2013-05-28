@@ -62,6 +62,8 @@
     layout: layout
     exercise: Exercise('', False)
     name_input: name_input
+    weightless_button: weightlessbutton
+    weights_button: weightsbutton
     BoxLayout:
         id: layout
         orientation: 'vertical'
@@ -94,11 +96,13 @@
 
         BoxLayout:
             ToggleButton:
+                id: weightsbutton
                 text: "Weight + Reps"
                 group: 'weightless'
                 on_release: root.exercise.weightless = False
                 size_hint: 1, .2
             ToggleButton:
+                id: weightlessbutton
                 text: "Reps only"
                 group: 'weightless'
                 on_release: root.exercise.weightless = True
