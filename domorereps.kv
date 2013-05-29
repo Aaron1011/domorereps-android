@@ -56,11 +56,11 @@
                     size_hint: .5, 1
 
         ScrollView:
-            pos_hint: {'y': .1}
+            size_hint: 1, .9
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
-                height: 600
+                height: root.scroll_height
                 id: layout
 
 <EditExerciseScreen>:

@@ -4,7 +4,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, NumericProperty
 from kivy.clock import Clock
 from models import *
 from session_decorator import *
@@ -19,6 +19,7 @@ class HomeScreen(Screen):
 class ExercisesScreen(Screen):
     layout = ObjectProperty(None)
     add_exercise = ObjectProperty(None)
+    scroll_height = NumericProperty(0)
 
     def __init__(self, session, **kwargs):
         super(ExercisesScreen, self).__init__(**kwargs)
@@ -27,11 +28,13 @@ class ExercisesScreen(Screen):
 
     def on_pre_enter(self):
         self.layout.clear_widgets()
+        self.scroll_height = 0
         for exercise in self.fetch_exercises():
             button = Button(text=exercise.name, size_hint=(.8, None),
-                    pos_hint={'x': .1}, height=40)
+                    pos_hint={'x': .1}, height=100)
             button.weightless = exercise.weightless
             button.bind(on_press=self.change_screen)
+            self.scroll_height += button.height
             self.layout.add_widget(button)
 
 
