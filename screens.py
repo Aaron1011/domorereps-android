@@ -6,6 +6,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.clock import Clock
+from kivy.core.window import Window
 from models import *
 from session_decorator import *
 
@@ -31,7 +32,7 @@ class ExercisesScreen(Screen):
         self.scroll_height = 0
         for exercise in self.fetch_exercises():
             button = Button(text=exercise.name, size_hint=(.8, None),
-                    pos_hint={'x': .1}, height=100)
+                    pos_hint={'x': .1}, height=Window.height / 12)
             button.weightless = exercise.weightless
             button.bind(on_press=self.change_screen)
             self.scroll_height += button.height
