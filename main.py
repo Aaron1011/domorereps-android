@@ -1,3 +1,8 @@
+try:
+    from secret_settings import *
+except:
+    print "No additional settings file found"
+
 import sys
 from os import environ
 import error_reporting
