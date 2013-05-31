@@ -6,8 +6,8 @@ cd ~/domorereps-android
 git pull
 cd ~/
 
-ANDROIDSDK=~/android-tools/adt-bundle-linux-x86_64-20130514/sdk;
-ANDROIDNDK=~/android-tools/android-ndk-r8e;
+ANDROIDSDK=/home/$USER/android-tools/adt-bundle-linux-x86_64-20130514/sdk;
+ANDROIDNDK=/home/$USER/android-tools/android-ndk-r8e;
 PYTHON_DIST_PATH=~/python-for-android/dist/default;
 
 PATH=$ANDROIDNDK:$ANDROIDSDK/tools:$PATH;
