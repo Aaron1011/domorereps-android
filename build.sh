@@ -19,7 +19,7 @@ if [ -z "$PYTHON_DIST_PATH" ]; then export PYTHON_DIST_PATH=~/Documents/kivy/pyt
 if [ -z "$BUILD_TYPE" ]; then export BUILD_TYPE=debug; fi
 if [ -z "$VERSION" ]; then export VERSION="1.0.0"; fi
 if [ -z "$INSTALL_TYPE" ]; then export INSTALL_TYPE=installr; fi
-if [ -z "$REPO_PATH" ]; then export REPO_PATH="~/domorereps-android"; fi
+if [ -z "$REPO_PATH" ]; then export REPO_PATH="/home/$USER/domorereps-android"; fi
 
 PATH=$ANDROIDNDK:$ANDROIDSDK/tools:$PATH
 
