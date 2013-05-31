@@ -113,3 +113,8 @@ class EditExerciseScreen(Screen):
                 size_hint=(.5, .5))
 
         popup.open()
+
+    def delete_exercise(self):
+        with transactional_session(self.session_class) as session:
+           session.delete(self.exercise)
+        self.manager.current = 'exercises'
