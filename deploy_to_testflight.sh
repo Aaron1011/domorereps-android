@@ -33,3 +33,4 @@ curl "http://testflightapp.com/api/builds.json" \
   -F distribution_lists='Testers'
 
 EOF
+read
