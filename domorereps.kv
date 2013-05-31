@@ -72,8 +72,11 @@
     BoxLayout:
         id: layout
         orientation: 'vertical'
+        size_hint: 1, .5
+        pos_hint: {'y': .5}
 
         BoxLayout:
+            size_hint: 1, .2
             AnchorLayout:
                 anchor_x: 'left'
                 anchor_y: 'top'
@@ -81,7 +84,7 @@
                 Button:
                     text: "Exercises"
                     on_release: root.manager.current = 'exercises'
-                    size_hint: .5, .2
+                    size_hint: .5, 1
 
             AnchorLayout:
                 anchor_x: 'right'
@@ -90,25 +93,24 @@
                 Button:
                     text: "Save"
                     on_release: root.save()
-                    size_hint: .5, .2
+                    size_hint: .5, 1
 
         TextInput:
             id: name_input
             text: root.exercise.name
             on_text: root.exercise.name = self.text
             multiline: False
-            size_hint: 1, .2
+            size_hint: 1, .1
 
         BoxLayout:
+            size_hint: 1, .2
             ToggleButton:
                 id: weightsbutton
                 text: "Weight + Reps"
                 group: 'weightless'
                 on_release: root.exercise.weightless = False
-                size_hint: 1, .2
             ToggleButton:
                 id: weightlessbutton
                 text: "Reps only"
                 group: 'weightless'
                 on_release: root.exercise.weightless = True
-                size_hint: 1, .2
