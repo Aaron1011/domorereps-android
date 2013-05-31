@@ -18,7 +18,7 @@ VERSION="`git --git-dir=$REPO_PATH describe --abbrev=0 --tags`"
 VERSION="`echo $VERSION | cut -d "v" -f 2`"
 
 echo $VERSION
-~/domorereps-android/build.sh VERSION release release
+~/domorereps-android/build.sh $VERSION release release
 
 jarsigner -verbose -keypass $KEYSTORE_PASS -storepass $KEYSTORE_PASS -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.my-keystore.keystore ~/python-for-android/dist/default/bin/DoMoreReps-$VERSION-release-unsigned.apk mykey;
 
