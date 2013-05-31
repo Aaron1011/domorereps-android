@@ -4,6 +4,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.clock import Clock
 from kivy.core.window import Window
@@ -15,7 +16,25 @@ from sqlalchemy.orm.exc import MultipleResultsFound
 from types import MethodType
 
 class HomeScreen(Screen):
-    pass
+    def workout_options(self):
+        layout = BoxLayout(orientation='vertical')
+
+        blank_btn = Button(text='Start Blank', size_hint=[.8, 1],
+                pos_hint={'x': .1})
+        template_btn = Button(text='Start from Template', size_hint=[.8, 1],
+                pos_hint={'x': .1})
+        previous_btn = Button(text='Copy from Previous', size_hint=[.8, 1],
+                pos_hint={'x': .1})
+
+        layout.add_widget(blank_btn)
+        layout.add_widget(template_btn)
+        layout.add_widget(previous_btn)
+
+        popup = Popup(title='', separator_height=0, content=layout, size_hint=[1, .5],
+                pos_hint={'top': .5})
+
+        popup.open()
+
 
 class ExercisesScreen(Screen):
     layout = ObjectProperty(None)
