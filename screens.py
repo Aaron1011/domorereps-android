@@ -3,6 +3,7 @@ from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+from kivy.uix.modalview import ModalView
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty, NumericProperty
@@ -30,8 +31,9 @@ class HomeScreen(Screen):
         layout.add_widget(template_btn)
         layout.add_widget(previous_btn)
 
-        self.popup = Popup(title='', separator_height=0, content=layout, size_hint=[1, .5],
+        self.popup = ModalView(content=layout, size_hint=[1, .5],
                 pos_hint={'top': .5})
+        self.popup.add_widget(layout)
 
         self.popup.open()
 
