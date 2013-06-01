@@ -86,8 +86,7 @@ class ExercisesScreen(Screen):
     def change_screen(self, instance):
         edit_screen = self.manager.get_screen('editexercise')
 
-        with transactional_session(self.session_class) as session:
-            exercise = session.query(Exercise).filter(Exercise.name==instance.text).one()
+        exercise = self.get_exercise(instance.text)
 
         edit_screen.exercise = exercise
         edit_screen.name_input.text = exercise.name
