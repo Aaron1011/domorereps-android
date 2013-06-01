@@ -20,7 +20,7 @@ class HomeScreen(Screen):
         layout = BoxLayout(orientation='vertical')
 
         blank_btn = Button(text='Start Blank', size_hint=[.8, 1],
-                pos_hint={'x': .1})
+                pos_hint={'x': .1}, on_release=self.new_workout)
         template_btn = Button(text='Start from Template', size_hint=[.8, 1],
                 pos_hint={'x': .1})
         previous_btn = Button(text='Copy from Previous', size_hint=[.8, 1],
@@ -34,6 +34,10 @@ class HomeScreen(Screen):
                 pos_hint={'top': .5})
 
         popup.open()
+
+    def new_workout(self, instance):
+        self.popup.dismiss()
+        self.manager.current = 'workout'
 
 
 class ExercisesScreen(Screen):
@@ -137,3 +141,7 @@ class EditExerciseScreen(Screen):
         with transactional_session(self.session_class) as session:
            session.delete(self.exercise)
         self.manager.current = 'exercises'
+
+class WorkoutScreen(Screen):
+    layout = ObjectProperty(None)
+    scroll_height = NumericProperty(0)
