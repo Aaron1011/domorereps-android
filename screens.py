@@ -30,10 +30,10 @@ class HomeScreen(Screen):
         layout.add_widget(template_btn)
         layout.add_widget(previous_btn)
 
-        popup = Popup(title='', separator_height=0, content=layout, size_hint=[1, .5],
+        self.popup = Popup(title='', separator_height=0, content=layout, size_hint=[1, .5],
                 pos_hint={'top': .5})
 
-        popup.open()
+        self.popup.open()
 
     def new_workout(self, instance):
         self.popup.dismiss()
