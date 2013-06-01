@@ -5,8 +5,9 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.modalview import ModalView
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.stacklayout import StackLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty, NumericProperty
+from kivy.properties import ObjectProperty, NumericProperty, DictProperty
 from kivy.clock import Clock
 from kivy.core.window import Window
 from models import *
@@ -76,6 +77,11 @@ class ExercisesScreen(Screen):
         edit_screen.exercise = exercise
         edit_screen.name_input.text = exercise.name
         self.manager.current = 'editexercise'
+
+    def get_exercise(self, name):
+        with transactional_session(self.session_class) as session:
+            return session.query(Exercise).filter(Exercise.name==name).one()
+
 
     def change_screen(self, instance):
         edit_screen = self.manager.get_screen('editexercise')
@@ -147,3 +153,31 @@ class EditExerciseScreen(Screen):
 class WorkoutScreen(Screen):
     layout = ObjectProperty(None)
     scroll_height = NumericProperty(0)
+    exercises = DictProperty()
+
+    def add_exercise(self, exercise):
+        if not exercise in self.exercises:
+            self.exercises[exercise] = []
+
+    def on_pre_enter(self):
+        self.layout.clear_widgets()
+        self.scroll_height = 0
+        for exercise in self.exercises:
+            label = Label(text=exercise.name)
+            self.scroll_height += label.height
+            self.layout.add_widget(label)
+
+            layout = StackLayout()
+            for workout in self.exercises[exercise]:
+                self.scroll_height += workout.height
+                layout.add_widget(workout)
+
+
+class SelectExerciseScreen(ExercisesScreen):
+
+    def change_screen(self, instance):
+        workout_screen = self.manager.get_screen('workout')
+        exercise = self.get_exercise(instance.text)
+
+        workout_screen.add_exercise(exercise)
+        self.manager.current = 'workout'
