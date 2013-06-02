@@ -16,6 +16,7 @@ from session_decorator import *
 from sqlalchemy.orm.exc import MultipleResultsFound
 
 from types import MethodType
+import datetime
 
 class HomeScreen(Screen):
     def workout_options(self):
@@ -175,6 +176,8 @@ class WorkoutScreen(Screen):
     def on_pre_enter(self):
         self.layout.clear_widgets()
         self.scroll_height = 0
+        if not self.exercise_session.start:
+            self.exercise_session.start = datetime.datetime.now()
         for ese in self.exercise_session.exercise_session_exercises:
             exercise = ese.exercise
             label = Label(text=exercise.name)
