@@ -152,24 +152,39 @@ class EditExerciseScreen(Screen):
 class WorkoutScreen(Screen):
     layout = ObjectProperty(None)
     scroll_height = NumericProperty(0)
-    exercises = DictProperty()
+
+    def __init__(self, session, **kwargs):
+        super(WorkoutScreen, self).__init__(**kwargs)
+        self.session_cls = session
+        self.exercise_session = ExerciseSession()
 
     def add_exercise(self, exercise):
-        if not exercise in self.exercises:
-            self.exercises[exercise] = []
+
+        for old_exercise in (ese.exercise for ese in
+                self.exercise_session.exercise_session_exercises):
+
+            if old_exercise.id == exercise.id:
+                return
+
+        ese = ExerciseSessionExercise()
+        ese.exercise = exercise
+        ese.exercise_session = self.exercise_session
+        ese.exerciseName = exercise.name
+        ese.exerciseSessionStart = ese.exercise_session.start
 
     def on_pre_enter(self):
         self.layout.clear_widgets()
         self.scroll_height = 0
-        for exercise in self.exercises:
+        for ese in self.exercise_session.exercise_session_exercises:
+            exercise = ese.exercise
             label = Label(text=exercise.name)
             self.scroll_height += label.height
             self.layout.add_widget(label)
 
-            layout = StackLayout()
-            for workout in self.exercises[exercise]:
-                self.scroll_height += workout.height
-                layout.add_widget(workout)
+            layout = StackLayout(border=[16,16,16,16])
+            #for workout in self.e:
+                #self.scroll_height += workout.height
+                #layout.add_widget(workout)
 
 
 class SelectExerciseScreen(ExercisesScreen):

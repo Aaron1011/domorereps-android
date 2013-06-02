@@ -42,7 +42,7 @@ class DomorerepsApp(App):
         sm.add_widget(ExercisesScreen(Session, name='exercises'))
         sm.add_widget(EditExerciseScreen(Session, name='editexercise'))
         sm.add_widget(SelectExerciseScreen(Session, name='selectexercise'))
-        sm.add_widget(WorkoutScreen(name='workout'))
+        sm.add_widget(WorkoutScreen(Session, name='workout'))
         return sm
 
     def load_exercises(self):
