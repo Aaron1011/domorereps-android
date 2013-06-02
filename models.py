@@ -45,7 +45,7 @@ class ExerciseSession(Base):
    
     dateSavedToServer = Column(Date)
     start = Column(Date)
-    end = Column(Date)
+    end = Column(Date, nullable=True)
 
 class ExerciseSet(Base):
     __tablename__ = 'exercisesets'
