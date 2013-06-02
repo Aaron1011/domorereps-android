@@ -189,6 +189,12 @@ class WorkoutScreen(Screen):
                 #self.scroll_height += workout.height
                 #layout.add_widget(workout)
 
+    def finish_workout(self):
+        with transactional_session(self.session_cls) as session:
+            session.add(self.exercise_session)
+        self.exercise_session = ExerciseSession()
+        self.manager.current = 'home'
+
 
 class SelectExerciseScreen(ExercisesScreen):
 
