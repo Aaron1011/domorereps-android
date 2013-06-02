@@ -43,7 +43,7 @@ class ExerciseSession(Base):
     __tablename__ = 'exercisesessions'
     id = Column(Integer, primary_key=True)
    
-    dateSavedToServer = Column(Date)
+    dateSavedToServer = Column(Date, nullable=True)
     start = Column(Date)
     end = Column(Date, nullable=True)
 
