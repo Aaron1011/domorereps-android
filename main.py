@@ -25,7 +25,7 @@ kivy.require('1.7.0')
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition, SlideTransition
 from kivy.properties import ObjectProperty
 
 from screens import *
@@ -37,7 +37,8 @@ from session_decorator import *
 class DomorerepsApp(App):
     def build(self):
         self.load_exercises()
-        sm = ScreenManager()
+        sm = ScreenManager(transition=SlideTransition())
+        sm.add_widget(SliderScreen())
         sm.add_widget(HomeScreen(name='home'))
         sm.add_widget(ExercisesScreen(Session, name='exercises'))
         sm.add_widget(EditExerciseScreen(Session, name='editexercise'))
